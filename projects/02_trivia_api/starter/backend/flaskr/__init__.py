@@ -61,7 +61,6 @@ def create_app(test_config=None):
         return jsonify({
             'success': True,
             'categories': categories,
-            'total_categories': len(categories)
         })
 
     '''
@@ -91,8 +90,6 @@ def create_app(test_config=None):
         for category in categories_query:
             categories.append(category.type)
 
-        print(len(selection))
-
         return jsonify({
             'success': True,
             'questions': current_questions,
@@ -119,25 +116,9 @@ def create_app(test_config=None):
 
             question.delete()
 
-            selection = Question.query.order_by(Question.id).all()
-            questions = []
-
-            for question in selection:
-                questions.append(question.format())
-
-            categories_query = Category.query.all()
-            categories = []
-
-            for category in categories_query:
-                categories.append(category.type)
-
             return jsonify({
                 'success': True,
                 'deleted': question_id,
-                'questions': questions,
-                'total_questions': len(selection),
-                'current_category': None,
-                'categories': categories
             })
 
         except:
@@ -173,25 +154,9 @@ def create_app(test_config=None):
             )
 
             new_question.insert()
-            selection = Question.query.filter(
-                Question.category == new_question.category).order_by(Question.id).all()
-            categories_query = Category.query.all()
-
-            categories = []
-            questions = []
-
-            for category in categories_query:
-                categories.append(category.type)
-
-            for question in selection:
-                questions.append(question.format())
 
             return jsonify({
-                'success': True,
-                'questions': questions,
-                'total_questions': len(selection),
-                'current_category': None,
-                'categories': categories
+                'success': True
             })
 
         except:
@@ -250,13 +215,7 @@ def create_app(test_config=None):
             if len(selection) == 0:
                 abort(404)
 
-            categories_query = Category.query.all()
-
             questions = []
-            categories = []
-
-            for category in categories_query:
-                categories.append(category.type)
 
             for question in selection:
                 questions.append(question.format())
@@ -266,7 +225,6 @@ def create_app(test_config=None):
                 'questions': questions,
                 'total_questions': len(questions),
                 'current_category': Category.query.filter(Category.id == category_id).first().type,
-                'categories': categories
             })
 
         except:
@@ -291,9 +249,12 @@ def create_app(test_config=None):
         previous_questions = body.get('previous_questions', [])
         quiz_category = body.get('quiz_category', None)
 
-        print(quiz_category)
-        selection = []
+        try:
+            quiz_category['id'] = int(quiz_category['id'])
+        except:
+            abort(405)
 
+        selection = []
         ALL_CATEGORIES = 0
 
         if quiz_category['id'] == ALL_CATEGORIES:
@@ -338,7 +299,7 @@ def create_app(test_config=None):
         }), 404
 
     @app.errorhandler(405)
-    def not_found(error):
+    def bad_request(error):
         return jsonify({
             "success": False,
             "error": 405,
