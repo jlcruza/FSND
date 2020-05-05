@@ -26,6 +26,7 @@ class QuestionView extends Component {
       url: `/questions?page=${this.state.page}`, //TODO: update request URL
       type: "GET",
       success: (result) => {
+        console.log(JSON.stringify(result))
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
@@ -46,6 +47,7 @@ class QuestionView extends Component {
 
   createPagination(){
     let pageNumbers = [];
+    console.log(this.state)
     let maxPage = Math.ceil(this.state.totalQuestions / 10)
     for (let i = 1; i <= maxPage; i++) {
       pageNumbers.push(
@@ -70,6 +72,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
+        console.log(JSON.stringify(error))
         alert('Unable to load questions. Please try your request again')
         return;
       }
@@ -78,7 +81,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
+      url: `/search`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -126,7 +129,7 @@ class QuestionView extends Component {
           <h2 onClick={() => {this.getQuestions()}}>Categories</h2>
           <ul>
             {Object.keys(this.state.categories).map((id, ) => (
-              <li key={id} onClick={() => {this.getByCategory(id)}}>
+              <li key={id} onClick={() => {this.getByCategory(parseInt(id)+1)}}>
                 {this.state.categories[id]}
                 <img className="category" src={`${this.state.categories[id]}.svg`}/>
               </li>
@@ -141,7 +144,7 @@ class QuestionView extends Component {
               key={q.id}
               question={q.question}
               answer={q.answer}
-              category={this.state.categories[q.category]} 
+              category={this.state.categories[q.category-1]} 
               difficulty={q.difficulty}
               questionAction={this.questionAction(q.id)}
             />
@@ -150,7 +153,7 @@ class QuestionView extends Component {
             {this.createPagination()}
           </div>
         </div>
-
+          
       </div>
     );
   }
