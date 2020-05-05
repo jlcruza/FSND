@@ -81,9 +81,11 @@ Endpoints
 GET '/categories'
 - Fetches a list of the categories available
 - Request Arguments: None
-- Returns: An object with a two keys. One is categories, which contains a list of available categories. Another key is success, which tell is the request was successful
+- Returns: An object with a two keys. One is categories, which contains a list of available categories. The other key is success, which tell is the request was successful.
 - Sample: `curl http://127.0.0.1:5000/categories`
-```{
+
+```
+{
   "categories": [
     "Science", 
     "Art", 
@@ -100,9 +102,10 @@ GET '/categories'
 GET '/questions'
 - Fetches a list of question objects from all categories. Results are paginated in groups of 10. Provide a request argument to choose the page number, starting from 1.
 - Request Arguments: page
-- Returns: A success value, list of question objects, the total of questions available, current categories and a list of all categories
+- Returns: A success value, list of question objects, the total of questions available, current categories and a list of all categories.
 - Sample: `curl http://127.0.0.1:5000/questions`
-```{
+```
+{
   "categories": [
     "Science", 
     "Art", 
@@ -191,11 +194,12 @@ GET '/questions'
 
 
 DELETE '/questions/{question_id}'
-- Delete the question with the specified id
+- Delete the question with the specified id.
 - Request Arguments: question_id
-- Returns: A success value and the id of the deleted question
+- Returns: A success value and the id of the deleted question.
 - Sample: `curl -X DELETE http://127.0.0.1:5000/questions/44`
-```{
+```
+{
   
   "deleted": 44, 
   "success": true
@@ -204,22 +208,24 @@ DELETE '/questions/{question_id}'
 
 
 POST '/questions'
-- Create a new question with the provided data containing the question, the answer, the difficulty, and the category
+- Create a new question with the provided data containing the question, the answer, the difficulty, and the category.
 - Request Arguments: none
-- Returns: A success value indicating if the request was successful
+- Returns: A success value indicating if the request was successful.
 - Sample: `curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d '{"question":"Who is the best?", "answer":"You", "difficulty":1, "category":1}'`
-```{
+```
+{
   "success": true
 }
 ```
 
 
 POST '/search'
-- Fetches a list of question objects that match exactly or partially with the provide search term. The type of search is case-insensitive
+- Fetches a list of question objects that match exactly or partially with the provide search term. The type of search is case-insensitive.
 - Request Arguments: none
-- Returns: A success value, the list of questions that matches the search term, the amount of the questions that matches, and the current category
+- Returns: A success value, the list of questions that matches the search term, the amount of the questions that matches, and the current category.
 Sample: `curl -X POST http://127.0.0.1:5000/search -H "Content-Type: application/json" -d '{"searchTerm":"what"}'`
-```{
+```
+{
   "current_category": null, 
   "questions": [
     {
@@ -286,11 +292,12 @@ Sample: `curl -X POST http://127.0.0.1:5000/search -H "Content-Type: application
 
 
 GET '/categories/{category_id}/questions'
-- Fetches a list of question objects from the specified category
+- Fetches a list of question objects from the specified category.
 - Request Arguments: category_id
-- Returns: A success value, the list of questions with the specified category, and the current category
+- Returns: A success value, the list of questions with the specified category, and the current category.
 - Sample: `curl http://127.0.0.1:5000/categories/2/questions`
-```{
+```
+{
   "current_category": "Art", 
   "questions": [
     {
@@ -329,11 +336,12 @@ GET '/categories/{category_id}/questions'
 
 
 POST '/quizzes'
-- Retrieve a random question that belong to the specified category, if provide, and that is not among the previous questions given
+- Retrieve a random question that belong to the specified category, if provide, and that is not among the previous questions given.
 - Request Arguments: none
-- Returns: A success value, and the random question
+- Returns: A success value, and the random question.
 - Sample: `curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d '{"previous_questions": [16, 17], "quiz_category": {"id": 2, "type":"Art"}}'`
-```{
+```
+{
   "question": {
     "answer": "One", 
     "category": 2, 
