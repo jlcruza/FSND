@@ -209,10 +209,11 @@ DELETE '/questions/{question_id}'
 POST '/questions'
 - Create a new question with the provided data containing the question, the answer, the difficulty, and the category.
 - Request Body: question:string, answer:string, difficulty:int, category:int
-- Returns: A success value indicating if the request was successful.
-- Sample: `curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d '{"question":"Who is the best?", "answer":"You", "difficulty":1, "category":1}'`
+- Returns: A success value indicating if the request was successful along with the id of the created newly created question.
+- Sample: `curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d '{"question":"Who is the best?", "answer":"You", "difficulty":1, "category":3}'`
 ```
 {
+  "created": 47, 
   "success": true
 }
 ```
@@ -358,5 +359,5 @@ To run the tests, run
 dropdb trivia_test
 createdb trivia_test
 psql trivia_test < trivia.psql
-python test_flaskr.py
+python3 test_flaskr.py
 ```

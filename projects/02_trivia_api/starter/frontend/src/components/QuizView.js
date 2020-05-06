@@ -61,6 +61,7 @@ class QuizView extends Component {
       },
       crossDomain: true,
       success: (result) => {
+        console.log(result)
         this.setState({
           showAnswer: false,
           previousQuestions: previousQuestions,
@@ -71,6 +72,12 @@ class QuizView extends Component {
         return;
       },
       error: (error) => {
+        if(error['status'] == 404){
+          this.setState({
+            forceEnd: true
+          });
+          return;
+        }
         alert('Unable to load question. Please try your request again')
         return;
       }
@@ -109,7 +116,7 @@ class QuizView extends Component {
                   return (
                     <div
                       key={id}
-                      value={id}
+                      value={parseInt(id)+1}
                       className="play-category"
                       onClick={() => this.selectCategory({type:this.state.categories[id], id: parseInt(id)+1})}>
                       {this.state.categories[id]}
@@ -131,9 +138,16 @@ class QuizView extends Component {
   }
 
   evaluateAnswer = () => {
-    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase().split(' ')
     const answerArray = this.state.currentQuestion.answer.toLowerCase().split(' ');
-    return answerArray.includes(formatGuess)
+    
+    let isCorrect = false;
+    answerArray.forEach(answer => {
+      if(formatGuess.includes(answer)){
+        isCorrect = true;
+      }
+    })
+    return isCorrect;
   }
 
   renderCorrectAnswer(){

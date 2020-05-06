@@ -102,6 +102,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
+        self.assertTrue(data['created'])
 
     def test_422_create_new_question(self):
         response = self.client().post('/questions', json=self.new_invalid_question)
