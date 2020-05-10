@@ -4,13 +4,32 @@
   </ion-toolbar>
 </ion-header>
 
+
+<div style="width: 100vw;">
+  <!-- Image Sorce: https://www.google.com/url?sa=i&url=https%3A%2F%2Fthenounproject.com%2Fterm%2Fbarista%2F1348318%2F&psig=AOvVaw2Z6orvExUTpC143myql8kb&ust=1589229737436000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjH-KWUqukCFQAAAAAdAAAAABAD -->
+  <img src="../../../assets/barista.png"
+    style="display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;">
+
+  <div style="font-size: 64px;
+    font-weight: lighter;
+    text-align: center;
+    width: 100%;
+    color:gray"><i>We are here to <strong>serve!</strong></i></div>
+</div>
+
 <ion-content *ngIf="!auth.token">
-  <ion-button [href]="loginURL">Log In</ion-button>
+  <ion-button color="success" [href]="loginURL"
+  style="width: 80%; display: block; margin-left: auto; margin-right: auto;">Log In</ion-button>
 </ion-content>
 <ion-content *ngIf="auth.token">
-  <ion-button (click)="auth.logout()">Log Out</ion-button>
-      <ion-item>
-        <ion-label>Active JWT</ion-label>
-        <ion-textarea [ngModel]="auth.token" name="Active JWT"></ion-textarea>
-      </ion-item>
+  <ion-button color="danger" (click)="logOut()"
+  style="width: 80%; display: block; margin-left: auto; margin-right: auto;">Log Out</ion-button>
+  <ion-item>
+    <ion-label>Active JWT</ion-label>
+    <ion-textarea [ngModel]="auth.token" auto-grow name="Active JWT" placeholder="No user" readonly></ion-textarea>
+  </ion-item>
+
 </ion-content>

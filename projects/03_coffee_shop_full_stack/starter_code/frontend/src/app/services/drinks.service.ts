@@ -83,10 +83,20 @@ export class DrinksService {
   constructor(private auth: AuthService, private http: HttpClient) { }
 
   getHeaders() {
+
+    // var headers = new Headers();
+    // headers.append('Access-Control-Allow-Origin' , '*');
+    // headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    // headers.append('Accept','application/json');
+    // headers.append('content-type','application/json');
+    // let options = new RequestOptions({ headers:headers,withCredentials: true});
+
     const header = {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${this.auth.activeJWT()}`)
+        .set('Access-Control-Allow-Origin', '*')
     };
+    console.log(header)
     return header;
   }
 
@@ -95,7 +105,7 @@ export class DrinksService {
       this.http.get(this.url + '/drinks-detail', this.getHeaders())
       .subscribe((res: any) => {
         this.drinksToItems(res.drinks);
-        console.log(res);
+        console.log("RES", res);
       });
     } else {
       this.http.get(this.url + '/drinks', this.getHeaders())

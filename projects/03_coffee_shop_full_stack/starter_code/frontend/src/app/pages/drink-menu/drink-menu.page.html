@@ -5,30 +5,53 @@
 </ion-header>
 
 <ion-content *ngIf="drinks && drinks.items">
-<div style="display: flex; justify-content: center; padding-top: 20px;">
+  <div style="display: flex; justify-content: center; padding-top: 20px;">
     <ion-card
-     style="align-items: center; display: flex; flex-direction: column; cursor: pointer;" 
-     *ngFor="let drink of Object.keys(drinks.items)"
-     (click)="openForm(drinks.items[drink])">
-        <ion-card-header>
-          <ion-card-title>{{drinks.items[drink].title}}</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content>
-            <app-drink-graphic [drink]="drinks.items[drink]"></app-drink-graphic>
-        </ion-card-content>
-      </ion-card>
+      style="align-items: center; display: flex; flex-direction: column; cursor:
+      pointer;"
+      *ngFor="let drink of Object.keys(drinks.items)"
+      (click)="openForm(drinks.items[drink])">
+      <ion-card-header>
+        <ion-card-title>{{drinks.items[drink].title}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <app-drink-graphic [drink]="drinks.items[drink]"></app-drink-graphic>
+      </ion-card-content>
+    </ion-card>
     <ion-card
-     style="opacity: .7; align-items: center; display: flex; flex-direction: column; cursor: pointer;" 
-     *ngIf="auth.can('post:drinks')"
-     (click)="openForm()">
-        <ion-card-header>
-          <ion-card-title>Create Drink</ion-card-title>
-        </ion-card-header>
+      style="opacity: .7; align-items: center; display: flex; flex-direction:
+      column; cursor: pointer;"
+      *ngIf="auth.can('post:drinks')"
+      (click)="openForm()">
+      <ion-card-header>
+        <ion-card-title>Create Drink</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content style="color:grey; font-size: 256%;">
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div style="width: 100vw;
+    position: fixed;
+    margin-top: 10vh;">
+
+    <div style="font-size: 64px;
+      font-weight: lighter;
+      text-align: center;
+      width: 100%;
+      color:gray"><i><strong>Welcome</strong> to our cafe!</i></div>
+
+<!-- Image Source: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Ffree-png-zobsg&psig=AOvVaw3tcBxRMM3mpNBrWmsiqtjR&ust=1589228859887000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCFs5uVqukCFQAAAAAdAAAAABAD -->
+    <img style="display: block;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 200px;"
       
-        <ion-card-content style="color:grey; font-size: 256%;">
-            <ion-icon name="add-circle"></ion-icon>
-        </ion-card-content>
-      </ion-card>
-</div>
+      src="../../../assets/coffee.png">
+  </div>
+
+
 </ion-content>

@@ -16,4 +16,7 @@ export class UserPagePage implements OnInit {
   ngOnInit() {
   }
 
+  logOut(){
+    window.location.href = "https://my-fsnd-coffee-shop.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A8100"
+  }
 }
